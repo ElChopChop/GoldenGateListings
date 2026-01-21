@@ -10,7 +10,7 @@
     --gold-light: #FFD700;
     --gold-dark: #B8941E;
     --gold-subtle: rgba(212, 175, 55, 0.1);
-    
+
     /* Neutral colors */
     --white: #FFFFFF;
     --black: #1A1A1A;
@@ -18,14 +18,14 @@
     --gray-medium: #666666;
     --gray-light: #F5F5F5;
     --gray-border: #E0E0E0;
-    
+
     /* Spacing */
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
     --spacing-md: 2rem;
     --spacing-lg: 3rem;
     --spacing-xl: 4rem;
-    
+
     /* Typography */
     --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-size-small: 0.875rem;
@@ -34,7 +34,7 @@
     --font-size-h3: 1.5rem;
     --font-size-h2: 2rem;
     --font-size-h1: 2.5rem;
-    
+
     /* Effects */
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
     --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
@@ -59,7 +59,9 @@ body {
 }
 
 /* Typography */
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     font-weight: 600;
     line-height: 1.2;
     color: var(--black);
@@ -131,8 +133,15 @@ section {
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-30px) rotate(5deg); }
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-30px) rotate(5deg);
+    }
 }
 
 .hero-content {
@@ -216,6 +225,7 @@ section {
     border-radius: 12px;
     box-shadow: var(--shadow-sm);
     transition: var(--transition);
+    text-align: center;
 }
 
 .problem-item:hover {
@@ -257,6 +267,7 @@ section {
     border-radius: 12px;
     transition: var(--transition);
     background: var(--white);
+    text-align: center;
 }
 
 .solution-item:hover {
@@ -310,9 +321,11 @@ section {
     gap: var(--spacing-md);
 }
 
-.before, .after {
+.before,
+.after {
     padding: var(--spacing-md);
     border-radius: 8px;
+    text-align: center;
 }
 
 .before {
@@ -688,36 +701,36 @@ section {
         --font-size-h2: 1.5rem;
         --font-size-h3: 1.25rem;
     }
-    
+
     .hero {
         min-height: 70vh;
         padding: var(--spacing-lg) 0;
     }
-    
+
     .hero h1 {
         font-size: 2rem;
     }
-    
+
     .hero h2 {
         font-size: 1.25rem;
     }
-    
+
     .comparison {
         grid-template-columns: 1fr;
     }
-    
+
     .contact-content {
         grid-template-columns: 1fr;
     }
-    
+
     .steps {
         flex-direction: column;
     }
-    
+
     .step-arrow {
         transform: rotate(90deg);
     }
-    
+
     .footer-content {
         flex-direction: column;
         text-align: center;
@@ -728,11 +741,11 @@ section {
     .container {
         padding: 0 var(--spacing-sm);
     }
-    
+
     section {
         padding: var(--spacing-md) 0;
     }
-    
+
     .problem-grid,
     .solution-grid,
     .why-grid,

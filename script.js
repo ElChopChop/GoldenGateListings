@@ -12,78 +12,54 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Contact form handling
+// Contact form handling with Formspree
 const contactForm = document.getElementById('contactForm');
 const formMessage = document.getElementById('formMessage');
 
 if (contactForm) {
-    contactForm.addEventListener('submit', function (e) {
+    contactForm.addEventListener('submit', async function (e) {
         e.preventDefault();
 
-        // Get form values
-        const formData = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            company: document.getElementById('company').value,
-            message: document.getElementById('message').value
-        };
+        // Get form button
+        const submitButton = contactForm.querySelector('.cta-button');
+        const originalText = submitButton.textContent;
 
-        // Basic validation
-        if (!formData.name || !formData.email || !formData.message) {
-            showMessage('Please fill in all required fields.', 'error');
-            return;
+        // Show loading state
+        submitButton.textContent = 'Sending...';
+        submitButton.disabled = true;
+
+        try {
+            // Send to Formspree
+            const response = await fetch(contactForm.action, {
+                method: 'POST',
+                body: new FormData(contactForm),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                // Success
+                showMessage('Thank you! Your message has been sent. We will contact you within 24 hours.', 'success');
+                contactForm.reset();
+            } else {
+                // Error from Formspree
+                const data = await response.json();
+                if (data.errors) {
+                    showMessage('Error: ' + data.errors.map(error => error.message).join(', '), 'error');
+                } else {
+                    showMessage('There was a problem sending your message. Please try again.', 'error');
+                }
+            }
+        } catch (error) {
+            // Network error
+            showMessage('There was a problem sending your message. Please email us directly at admin@goldengatelistings.com', 'error');
+        } finally {
+            // Reset button
+            submitButton.textContent = originalText;
+            submitButton.disabled = false;
         }
-
-        // Email validation
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailPattern.test(formData.email)) {
-            showMessage('Please enter a valid email address.', 'error');
-            return;
-        }
-
-        // Simulate form submission
-        // In production, you would send this data to your server
-        submitForm(formData);
     });
-}
-
-function submitForm(formData) {
-    // Show loading state
-    const submitButton = contactForm.querySelector('.cta-button');
-    const originalText = submitButton.textContent;
-    submitButton.textContent = 'Sending...';
-    submitButton.disabled = true;
-
-    // Simulate API call
-    // In production, replace this with actual form submission to your backend
-    setTimeout(() => {
-        // For demo purposes, we'll create a mailto link
-        const mailtoLink = createMailtoLink(formData);
-
-        // Show success message
-        showMessage('Thank you! Your message has been received. We will contact you within 24 hours.', 'success');
-
-        // Reset form
-        contactForm.reset();
-
-        // Reset button
-        submitButton.textContent = originalText;
-        submitButton.disabled = false;
-
-        // Optional: Open email client
-        // window.location.href = mailtoLink;
-    }, 1000);
-}
-
-function createMailtoLink(formData) {
-    const subject = encodeURIComponent('Golden Gate Listings Inquiry - ' + formData.name);
-    const body = encodeURIComponent(
-        `Name: ${formData.name}\n` +
-        `Email: ${formData.email}\n` +
-        `Company: ${formData.company || 'Not provided'}\n\n` +
-        `Message:\n${formData.message}`
-    );
-    return `mailto:contact@goldengatelistings.com?subject=${subject}&body=${body}`;
 }
 
 function showMessage(message, type) {

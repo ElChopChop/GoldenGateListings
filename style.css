@@ -144,6 +144,20 @@ section {
     }
 }
 
+.hero-logo {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    position: relative;
+    z-index: 1;
+}
+
+.hero-logo img {
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+}
+
 .hero-content {
     text-align: center;
     max-width: 800px;
@@ -165,6 +179,13 @@ section {
     font-size: var(--font-size-h3);
     font-weight: 500;
     color: var(--gray-dark);
+    margin-bottom: var(--spacing-md);
+}
+
+.hero-chinese {
+    font-size: var(--font-size-large);
+    color: var(--gold-dark);
+    font-weight: 500;
     margin-bottom: var(--spacing-md);
 }
 
